@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <h2>{{item.name}} ({{category.name}})</h2>
+    <p class="text-secondary">{{item.description}}</p>
+  </div>
+  <div class="container">
+    <a href="{{url_for('editItem', category_name=category.name, item_name=item.name)}}">
+      <button type="button" class="btn btn-info">Edit</button>
+    </a>
+    <a href="{{url_for('deleteItem', category_name=category.name, item_name=item.name)}}">
+      <button type="button" class="btn">Delete</button>
+    </a>
+
+{% endblock %}

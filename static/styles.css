@@ -1,0 +1,65 @@
+* {
+  font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+h1 {
+	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	color: #51453B;
+	line-height: 60px;
+	font-weight: 300;
+}
+
+h2 {
+	font-size: 24px;
+	color: #42C3C9;
+	line-height: 29px;
+}
+
+h3 {
+	font-size: 18px;
+	color: #4A4A4A;
+	line-height: 23px;
+}
+
+li {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 1240px;
+}
+
+.container {
+  width: 80%;
+}
+
+.top-menu {
+  padding: 5px 60px 5px 60px;
+}
+
+.table {
+  margin-top: 20px;
+  padding: 10px 60px 10px 60px;
+}
+
+.login-button {
+  position: relative;
+  vertical-align: middle;
+}
+
+.category-column {
+  text-align: left;
+  border-right: 1px solid grey;
+}
+
+.item-column {
+  text-align: left;
+}

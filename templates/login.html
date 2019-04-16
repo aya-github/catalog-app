@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--New google sign-in adoption is based on the github page below-->
+<!--https://gist.github.com/shyamgupta/d8ba035403e8165510585b805cf64ee6-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='styles.css') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script>
+      function start() {
+        gapi.load('auth2', function() {
+          auth2 = gapi.auth2.init({
+            client_id: '371645573383-v2t7gvqjc0hguh7fq71r1vons9141gb3'
+          });
+        });
+      }
+    </script>
+
+    <title>Login</title>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="row top-menu bg-dark">
+      	<div class="col-md-8">
+      		<a href="{{url_for('index')}}">
+            <h1 class="text-light">Catalog App</h1>
+      		</a>
+      	</div>
+      </div>
+
+      <div class="container bg-light">
+        <p>Sign in with Google</p>
+        <button type="button" class="btn btn-outline-primary" id="signinButton">Google Signin</button>
+        <span class="g-signin"
+          data-scope="openid email"
+          data-clientid="371645573383-v2t7gvqjc0hguh7fq71r1vons9141gb3.apps.googleusercontent.com"
+          data-redirecturi="postmessage"
+          data-accesstype="offline"
+          data-cookiepolicy="single_host_origin"
+          data-callback="signInCallback"
+          data-approvalprompt="force">
+        </span>
+      </div>
+    </div>
+
+<div id="result"></div>
+
+    <script>
+    $('#signinButton').click(function() {
+      function signInCallback(authResult){
+        if (authResult['code']){
+          $('#signinButton').attr('style', 'display: none');
+          $.ajax({
+            type: 'POST',
+            url: '/gconnect?state={{STATE}}',
+            headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+            },
+            contentType: 'application/octet-stream; charset=utf-8',
+            success:function(result){
+              $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                   setTimeout(function() {
+                    window.location.href = "/index";
+                   }, 2000);
+            },
+            processData:false,
+            data:authResult['code']
+          });
+        } else{
+          // handle error
+          console.log('There was an error: ' + authResult['error']);
+          $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+        }
+      }
+      auth2.grantOfflineAccess().then(signInCallback);
+    });
+  </script>
+  </body>
+</html>
